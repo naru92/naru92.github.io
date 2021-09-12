@@ -1,10 +1,11 @@
 ---
 layout: post
-title:  "코딩테스트를 위한 준비"
-subtitle:   "코딩테스트 정리"
+title: 코딩테스트를 위한 준비
+subtitle: 코딩테스트 정리
 categories: etc
 tags: etc
 comments: true
+published: true
 ---
 # 이것이 코딩 테스트다
 
@@ -408,3 +409,214 @@ public class Greedy {
 
 
 ### 곱하기 혹은 더하기
+
+```
+
+package chapter4;
+
+import java.util.Scanner;
+
+public class Greedy4 {
+    //각 자리가 숫자(0~9) 로만 이루어진 문자열 S가 주어졌을 때, 
+    //왼쪽부터 오른쪽으로 하나씩 모든 숫자를 확인하며 숫자 사이에 'X' 혹은 '+' 연산자를 넣어
+    // 결과적으로 만들어질 수 있는 가장 큰 수를 구하는 프로그램을 작성하시오
+    //단, +보다 X를 먼저 계산하는 일반적인 방식과는 달리, 모든 연산은 왼쪽에서 부터 순서대로
+    //이루어 진다고 가정한다.
+    
+    //예를 들어 02984라는 문자열로 만들수 있는 가장 큰 수는 ((((0+2) X 9) X 8)X 4) = 576입니다.
+    //또한 만들어질수 있는 가장 큰 수는 항상 20억 이하의 정수가 되도록 입력이 주어집니다.
+    
+    /* 
+     * 풀이시간 30분
+     * 시간제한 1초
+     * 메모리제한 128MB
+     * 기출 Facebook 인터뷰
+         
+         -입력 조건
+     * 첫쨰 줄에 여러개의 숫자로 구성된 하나의 문자열 S가 주어집니다 (1<= S의길이 <=20)
+         
+         -출력 조건
+     *첫째 줄에 만들어질 수 있는 가장 큰 수를 출력합니다
+         
+     *입력 예시   출력예시
+         1.02984     576
+         2.567       210
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine(); 
+       long result = s.charAt(0) - '0'; //JAVA에선 아스키코드 값이 나오기 때문에 '0'의 아스키코드값 48을 빼줘야
+                                        //charAt(?)의 값이 본디 정수값이 나옴
+       for(int i =1; i < s.length(); i++) {
+           int num = s.charAt(i) -'0';
+           if (num <= 1 || result <= 1) {
+               //두 수 중 하나라도 0 or 1인경우 , 더하기가 이득
+               result += num;
+           }else {
+               //나머진 곱하는게 값이 커짐
+               result *= num;
+           }
+       }
+       
+       System.out.println(result);
+       sc.close();
+    }
+}
+
+```
+
+<br/>
+
+### 모험가 길드
+
+```
+package chapter4;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Greedy5 {
+    /* 
+      모험가 길드
+     - 한 마을에 모험가가 N명있습니다. 모험가 길드에서는 n명의 모험가를 대상으로 '공포도'를 측정했는데,
+      '공포도'가 높은 모험가는 쉽게 공포를 느껴 위험 상황에서 제대로 대처 할 능력이 떨어집니다.
+     - 모험가 길드장인 사용자는 모험가 그룹을 안전하게 구성하고자 공포도가 X인 모험가는 반드시 X명 이상으로 구성한 모험가 그룹에 참여해야
+       여행을 떠날 수 있도록 규정했습니다.
+     - 사용자는 최대 몇 개의 모험가 그룹을 만들 수 있는지 궁금합니다. N명의 모험가에 대한 정보가 주어졌을때, 여행을 떠날 수 있는
+       그룹 수의 최댓값을 구하는 프로그램을 작성하세요.
+    */
+    
+    // N=5 , 공포도는 각각 2 3 1 2 2 이라 가정한다.
+    
+    /*
+     * 풀이시간 30분
+     * 시간제한 1초
+     * 메모리제한 128MB
+     * 기출 핵심유형
+     * */
+    
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt(); //인원수
+        
+        ArrayList<Integer> arr = new ArrayList<>();
+        
+        for(int i=0 ; i < n; i++) {
+            arr.add(scanner.nextInt());    
+        }
+        Collections.sort(arr); //Collection 클래스의 sort사용 (arrayList)
+                               //현재 그룹은 오름차순으로 정렬 됨
+        
+        int result = 0; // 총 그룹의 수
+        int count = 0; // 총 모험가의 수
+        
+        for(int i =0 ; i < arr.size(); i++) { // 공포도가 낮은순으로 리스트 순회
+            count += 1; // 현재 그룹에 모험가 포함(증가)
+            if( count >= arr.get(i)) { //공포도가 인원수 보다 작거나 같다면
+                result += 1; //그룹하나 새로 만들어짐
+                count = 0; // 모험가수 초기화
+            }
+        }
+        System.out.println(result);
+    }
+}
+
+
+```
+
+## Chapter 5 구현
+
+- 구현이란 ? 머릿속에 있는 알고리즘을 소스코드로 바꾸는 과정
+- 풀이는 쉬우나, 소스코드로 옮기기 어려운 경우가 多
+- 사용언어에 따라 난이도가 상이함
+- 알고리즘은 간단하나 구현코드 길이가 긺
+	- ex) 실수 연산을 다루고, 특정 소수점 자리까지 출력해야 하는 문제
+     	  문자열을 특정한 기준에 따라서 끊어 처리해야 하는 문제
+     	 적절한 라이브러리를 찾아서 사용해야 하는 문제 
+
+
+**Tip. 일반 적으로 알고리즘 문제에서의 2차원 공간은 행렬(Matrix)의 의미로 사용된다.**
+
+<br/>
+
+### 상하좌우 문제
+
+```
+
+/*
+     * 상하좌우 문제
+     * 여행가 A는 N x N 크기의 정사각형 공간 위에 서 있습니다. 이 공간은 1 x 1 크기의 정사각형으로 나누어져
+     * 있습니다. 가장 왼쪽 위 좌표는 (1,1) 이며 가장 오른쪽 아래 좌표는 (N,N)에 해당합니다. 여행가 A는
+     * 상, 하, 좌, 우 방향으로 이동할 수 있으며, 시작 좌표는 항상(1,1) 입니다. 우리 앞에는 여행가 A가 이동할 계획이
+     * 적힌 계획서가 놓여 있습니다.
+     * 
+     * 계획서에는 하나의 줄에 띄어쓰기를 기준으로 하여 L, R, U, D 중 하나의 문자가 반복적으로 적혀 있습니다.
+     * 각 문자의 의미는 다음과 같습니다.
+     
+     -L : 왼쪽으로 한 칸 이동
+     -R : 오른쪽으로 한 칸 이동
+     -U : 위로 한 칸 이동
+     -D : 아래로 한 칸 이동
+     
+     -이때 여행가 A가 N x N 크기의 정사각형 공간을 벗어나는 움직임은 무시 됩니다.
+     
+     *풀이시간 15분
+     *시간 제한 2초
+     *메모리 제한 128MB
+     
+     *입력조건
+     *첫째 줄에 공간의 크기를 나타내는 N이 주어집니다 (1<= N <= 100)
+     *둘째 줄에 여행가 A가 이동할 계획서 내용이 주어집니다.(1<= 이동횟수 <= 100)
+     
+     *출력조건
+     *첫째 줄에 여행가 A가 최종적으로 도착할 지점의 좌표(X,Y)를 공백을 기준으로 구분하여 출력합니다
+     
+     *입력 예시                 출력예시
+     *5                       3 4 
+     *R R R U D D
+    */
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();//2차원 배열의 크기
+        
+        sc.nextLine();//버퍼 지우기
+        String[] movePlans = sc.nextLine().split(" "); //공백을 기준으로 자름
+        int x = 1 , y = 1;
+        
+        // L, R, U, D에 따른 이동 방향
+        int[] dx = {0, 0, -1, 1};
+        int[] dy = {-1, 1, 0, 0};
+        char[] moveType = {'L','R','U','D'};
+        
+        //이동 계획을 하나씩 확인
+        for(int i=0 ; i< movePlans.length; i++) {
+            char movePlan = movePlans[i].charAt(0);
+            //이동 후 좌표 구하기
+            int nx = -1, ny = -1;
+            for(int j =0 ; j< 4; j++) {
+                if(movePlan == moveType[j]) {
+                    nx = x + dx[j];
+                    ny = y + dy[j];
+                }
+            }
+            //공간을 벗어나는 경우 무시
+            if(nx < 1 || ny <1 || nx> n || ny > n ) {
+                continue;
+            }
+            x = nx;
+            y = ny;
+        }
+        System.out.println(x + " " + y);
+        sc.close();
+    }
+}
+
+```
+
+> 핵심은 L,R,U,D 에따른 이동방향 수립 , 공간을 벗어나는 경우의 처리
+
+
