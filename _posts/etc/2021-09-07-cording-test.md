@@ -1,10 +1,11 @@
 ---
 layout: post
-title:  "코딩테스트를 위한 준비"
-subtitle:   "코딩테스트 정리"
+title: 코딩테스트를 위한 준비
+subtitle: 코딩테스트 정리
 categories: etc
 tags: etc
 comments: true
+published: true
 ---
 # 이것이 코딩 테스트다
 
@@ -25,6 +26,8 @@ comments: true
 - [최신 출제 경향과 준비 방향](#최신-출제-경향과-준비-방향)
 
 2. [그리디 알고리즘](#그리디-알고리즘)
+
+3. [구현](#구현)
 
 ## 1.복잡도
 
@@ -245,7 +248,7 @@ SLACK에서 이용가능하다.
 <br />
 <hr />
 
-##2.그리디 알고리즘
+## 2.그리디 알고리즘
 
 - ### 거스름돈
 > 대표적인 그리디 알고리즘
@@ -408,8 +411,6 @@ public class Greedy {
 
 
 ### 곱하기 혹은 더하기
-<<<<<<< HEAD:_posts/project/2021-09-07-cording-test.md
-=======
 
 ```
 
@@ -621,5 +622,5 @@ public class Greedy5 {
 
 ```
 
-> 핵심은 L,R,U,D 에따른 이동방향 수립 , 공간을 벗어나는 경우의 처리
->>>>>>> parent of 16e5b8e (Update 2021-09-07-cording-test.md):_posts/etc/2021-09-07-cording-test.md
+> 시간복잡도 O(N)
+핵심은 L,R,U,D 에따른 이동방향 수립 , 공간을 벗어나는 경우의 처리

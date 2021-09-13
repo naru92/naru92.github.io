@@ -37,7 +37,7 @@ Lombok
 
 ```
 
-<!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -171,7 +171,7 @@ Resources/static/css/bootstrap.min.css
 
 **AddForm – 상품등록 화면**
 ```
-<!DOCTYPE HTML>
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -226,7 +226,7 @@ Resources/static/css/bootstrap.min.css
 
 ```
 
-<!DOCTYPE HTML>
+
 <html>
 <head>
  <meta charset="utf-8">
@@ -282,7 +282,6 @@ onclick="location.href='items.html'" type="button">취소</button>
 
 ```
 
-<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -339,7 +338,6 @@ onclick="location.href='items.html'" type="button">취소</button>
 
 ```
 
-<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -441,7 +439,7 @@ public class BasicItemController {
 
 ```
 
-<!DOCTYPE HTML>
+
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
@@ -599,7 +597,7 @@ th:href="@{/basic/items/{itemId}(itemId=${item.id}, query='test')}"
 
 ```
 
-<!DOCTYPE HTML>
+
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
@@ -699,7 +697,7 @@ th:onclick="|location.href='@{/basic/items}'|"
 
 ```
 
-<!DOCTYPE HTML>
+
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
@@ -841,7 +839,7 @@ ModelAttribute는 객체를 자동으로 만들고 set으로 데이터를 자동
 
 ```
 
-<!DOCTYPE HTML>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">

@@ -1,6 +1,6 @@
 ---
 layout: tag-blog
-title: SPRING
+title: spring
 slug: SPRING
 category: study
 menu: false
