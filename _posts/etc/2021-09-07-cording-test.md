@@ -412,7 +412,7 @@ public class Greedy {
 
 ### 곱하기 혹은 더하기
 
-
+g
 ```
 
 package chapter4;
