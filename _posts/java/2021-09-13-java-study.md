@@ -1,11 +1,21 @@
 ---
 layout: post
+title: 자바의 정석 스터디 - 객체지향
+subtitle: 객체지향프로그래밍 Ⅰ
+categories: study
+tags: JAVA
+comments: true
+published: true
+---
+---
+layout: post
 title:  "자바의 정석 스터디 - 객체지향"
 subtitle:   "객체지향프로그래밍 Ⅰ"
 categories: study
 tags: JAVA
 comments: true
 ---
+
 ## 자바의 정석
 >자바의 정석 스터디 1주차 (2021-09-13 ~ )
 >Ch06 - 객체지향프로그래밍 Ⅰ 정리
@@ -159,3 +169,302 @@ comments: true
 >객체는 속성과 기능, 두 종류의 구성요소로 이루어져 있으며, 일반적으로 객체는 다수의 속성과 기능을 갖는다. 즉, 객체는 속성과 기능의 집합이라고 할 수 있다.
 
 <br/>
+
+>속성(property) 맴버 변수(member variable), 특성(attribute), 필드(field), 상태(state)
+기능(function) 메서드(method), 함수(function), 행위(behavior)
+
+<br/>
+예를 들어 TV라는 객체는 다음과 같이 속성과 기능으로 분리할 수 있다.
+- 속성: 크기,길이,높이,볼륨,채널 등
+- 기능: 켜기,끄기,볼륨 업, 볼륨 다운, 채널 변경 등
+
+코드로 본다면 다음과 같다.
+
+```
+
+Public Class TV{
+	int channel;
+    //속성
+    
+    public int channelUp(){
+    //기능
+    	this.channel++;
+    }
+}
+
+```
+
+<br/>
+
+**인스턴스의 생성과 사용**
+
+객체의 속성과 기능을 사용하려면, 인스턴스를 생성해야 사용 할 수 있다.
+객체의 생성 방법은 여러가지가 있지만 일반적으로는 아래와 같이 작성한ㄷ
+
+> 클래스명 변수명; // 클래스의 참조변수 선언
+> 변수명 = new 클래스명(); // 클래스의 객체 생성후, 객체의 주소를 참조변수에 저장;
+>
+> Tv t;
+> t = new Tv();
+
+<br/>
+
+Tv클래스 만들기 실습
+
+- Tv.class
+
+```
+
+package ch06_createInstance;
+
+public class Tv {
+    
+    //Tv의 속성을 정의합니다.(맴버변수(=인스턴스맴버))
+    String color; //색상
+    boolean power; // 전원 상태(on/off)
+    int channel; //채널
+    
+    //Tv의 기능(메서드)
+    void power() {
+        power = !power; //Tv의 전원을 끄는 기능
+    }
+    
+    void channelUp() {
+        channel++; //Tv의 채널을 높이는 기능
+    }
+    
+    void channelDown() {
+        channel--; //Tv의 채널을 낮추는 기능
+    }
+    
+}
+
+```
+
+<br/>
+
+- TvExample.class
+
+```
+
+package ch06_createInstance;
+
+
+public class TvExample {
+    public static void main(String[] args) {
+        
+        Tv tv;  // Tv객체를 생성하기 위해 변수 tv 생성후
+        tv = new Tv(); // new 연산자를 통해 인스턴스를 생성
+        
+        //일반적으로 **Tv tv =  new Tv();** 와 같이 작성
+        
+        
+        //인스턴스변수 tv로 기능(메서드에 아래와 같이 호출)
+        
+        tv.channel = 7; //클래스 인스턴스 맴버 channel에 7을 셋팅
+        tv.channelDown(); //정의해둔 기능에 의해 채널 값 7이 -1된다.
+        
+        System.out.printf("현재 채널의 값 : %d" , tv.channel);
+    }
+}
+
+
+```
+
+<br/>
+
+TvExample를 차례로 살펴보자
+
+1. Tv tv;
+		- Tv클래스 타입의 참조변수 tv를 선언했다. 이제 메모리에 참조변수 tv의 공간이 마련된다. 아직 인스턴스가 생성되지 않았으므로 참조변수로 아무것도 할수 없다.
+
+2. tv = new Tv();
+		- 연산자 new에 의해 Tv클래스의 인스턴스가 메모리에 생긴다. 고유의 주소값을 가지며. 이 때 멤버변수는 각 자료형에 해당하는 기본값으로 초기화된다.(String color = null; ,boolean power = null; ,int Channel = 0; )
+		-  대입 연산자(=) 에 의해서 객체의 **주소값**이 참조변수 tv에 저장된다. 이제 참조변수 tv를 통해 Tv의 인스턴스에 접근이 가능하다. (Tv의 인스턴스: 인스턴스변수: color,power,channel / 메서드 : power(), channelUp(), channelDown())        
+3.  tv.channel = 7;
+		- 참조변수 tv에 저장된 주소에 있는 인스턴스의 멤버변수 channel에 7을 저장한다. 참조변수로의 접근은 도트연산자(.)을 통해 위와같이 가능하다.
+        
+4. tv.channelDown()
+		- 참조변수 t가 참조하고 있는 Tv의 인스턴스의 channelDown메서드를 호출한다. 멤버변수 channel값을 1만큼 감소시킨다. 따라서 channel의 값은 6이 된다.
+
+5. System.out.printf("현재 채널의 값 : %d" , tv.channel);
+		- 참조변수 tv가 참조하고 있는 channel의 값을 출력한다. 현재 값은 6이니 **현재 채널의 값 : 6** 이 출력된다.
+        
+</br>
+
+> 위와같이 인스턴스는 참조변수를 통해서 접근하며 참조 변수의 타입은 인스턴스의 타입과 일치 해야한다.
+
+<br/>
+
+다음은 같은 클래스에서 두개의 참조변수로 객체를 생성해보는 예제이다.
+<br/>
+
+- Tv.class
+
+```
+
+package ch06_createInstance;
+
+public class Tv {
+    
+    //Tv의 속성을 정의합니다.(맴버변수(=인스턴스맴버))
+    String color; //색상
+    boolean power; // 전원 상태(on/off)
+    int channel; //채널
+    
+    //Tv의 기능(메서드)
+    void power() {
+        power = !power; //Tv의 전원을 끄는 기능
+    }
+    
+    void channelUp() {
+        channel++; //Tv의 채널을 높이는 기능
+    }
+    
+    void channelDown() {
+        channel--; //Tv의 채널을 낮추는 기능
+    }
+    
+}
+
+```
+
+- TvExample2.class
+
+```
+
+package ch06_createInstance;
+
+
+public class TvExample2 {
+    public static void main(String[] args) {
+        
+        Tv tv1 = new Tv(); // 변수이름 tv1인 Tv객체 생성 
+        Tv tv2 = new Tv(); // 변수이름 tv2인 Tv객체 생성 
+        
+        System.out.printf("tv1의 현재 채널의 값 : %d\n" , tv1.channel);
+        System.out.printf("tv2의 현재 채널의 값 : %d\n" , tv2.channel);
+        
+        tv1.channel = 7;
+        System.out.printf("tv1의 현재 채널의 값 : %d로 변경 하였습니다\n" , tv1.channel);
+        
+        System.out.printf("현재 채널의 값 : %d\n" , tv1.channel);
+        System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);
+    }
+}
+
+```
+
+> **실행결과**
+> tv1의 현재 채널의 값 : 0
+> tv2의 현재 채널의 값 : 0
+> tv1의 현재 채널의 값 : 7로 변경 하였습니다
+> 현재 채널의 값 : 7
+> 현재 채널의 값 : 0
+
+</br>
+
+
+1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv();
+		- tv1과 tv2는 같은 클래스로부터 생성 되었을지라도, 생성시 다른 주소값을 부여받게된다.
+
+2. tv1.channel = 7;
+		- 따라서 위의 코드는 tv1이 참조하고 있는 참조변수 channel에만 7의 값이 셋팅된다.
+<br/>
+
+>즉 , 같은 클래스로부터 생성 되었을지라도 인스턴스 속성(멤버변수)의 값은 서로 다른 값을 유지할 수 있으며, 메서드의 내용은 모든 인스턴스에 대해 동일하게 작동한다.
+
+<br/>
+
+다음은 참조변수 tv1의 값을 tv2에 대입해보는 예제이다.
+
+- Tv.class
+
+```
+
+package ch06_createInstance;
+
+public class Tv {
+    
+    //Tv의 속성을 정의합니다.(맴버변수(=인스턴스맴버))
+    String color; //색상
+    boolean power; // 전원 상태(on/off)
+    int channel; //채널
+    
+    //Tv의 기능(메서드)
+    void power() {
+        power = !power; //Tv의 전원을 끄는 기능
+    }
+    
+    void channelUp() {
+        channel++; //Tv의 채널을 높이는 기능
+    }
+    
+    void channelDown() {
+        channel--; //Tv의 채널을 낮추는 기능
+    }
+    
+}
+
+```
+
+- TvExample2.class
+
+```
+
+package ch06_createInstance;
+
+
+public class TvExample3 {
+    public static void main(String[] args) {
+        
+        Tv tv1 = new Tv(); // 변수이름 tv1인 Tv객체 생성 
+        Tv tv2 = new Tv(); // 변수이름 tv2인 Tv객체 생성 
+        
+        System.out.printf("tv1의 현재 채널의 값 : %d\n" , tv1.channel);
+        System.out.printf("tv2의 현재 채널의 값 : %d\n" , tv2.channel);
+        
+        tv2 = tv1; // t1의 주소값을 t2에 대입한다. 즉, 둘의 주소값이 같아진다.
+        tv1.channel = 7;
+        System.out.printf("tv1의 현재 채널의 값 : %d로 변경 하였습니다\n" , tv1.channel);
+        
+        
+        
+        System.out.printf("현재 채널의 값 : %d\n" , tv1.channel);
+        System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);
+    }
+}
+
+```
+
+<br/>
+
+>**실행결과**
+>tv1의 현재 채널의 값 : 0
+>tv2의 현재 채널의 값 : 0
+>tv1의 현재 채널의 값 : 7로 변경 하였습니다
+>현재 채널의 값 : 7
+>현재 채널의 값 : 7
+
+<br/>
+
+1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv();
+		- tv1과 tv2는 같은 클래스로부터 생성 되었을지라도, 생성시 다른 주소값을 부여받게된다.
+
+2. tv2 = tv1;
+		- 이 코드에서 tv1의 인스턴스의 주소값과 tv2의 인스턴스 주소값이 같아진다. tv2가 원래 가지고 있던 주소 값은 사라진다. 즉, tv2가 참조하고 있던 인스턴스는 더이상 사용 할 수 없다.
+        
+3. tv1.channel = 7;
+		- tv1가 참조하고있는 인스턴스 멤버 channel값이 7이된다. (tv2도 동일)
+
+4. System.out.printf("현재 채널의 값 : %d\n" , tv1.channel);
+        System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);
+        - tv1, tv2 동일한 주소값에 7이라는 값이 셋팅되었으므로, 두 값 모두 7이 출력된다.
+
+<br/>
+
+>둘 이상의 참조변수가 하나의 인스턴스를 참조하는 것은 가능하지만 하나의 참조 변수로 여러개의 인스턴스를 가리키는 것은 가능하지 않다.
+
+<br/>
+
+**인스턴스의 생성과 사용**
