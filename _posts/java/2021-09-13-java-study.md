@@ -275,22 +275,22 @@ public class TvExample {
 
 TvExample를 차례로 살펴보자
 
-1. Tv tv;
+1. Tv tv; <br/>
 		- Tv클래스 타입의 참조변수 tv를 선언했다. 이제 메모리에 참조변수 tv의 공간이 마련된다. 아직 인스턴스가 생성되지 않았으므로 참조변수로 아무것도 할수 없다.
 
-2. tv = new Tv();
+2. tv = new Tv(); <br/>
 		- 연산자 new에 의해 Tv클래스의 인스턴스가 메모리에 생긴다. 고유의 주소값을 가지며. 이 때 멤버변수는 각 자료형에 해당하는 기본값으로 초기화된다.(String color = null; ,boolean power = null; ,int Channel = 0; )
 		-  대입 연산자(=) 에 의해서 객체의 **주소값**이 참조변수 tv에 저장된다. 이제 참조변수 tv를 통해 Tv의 인스턴스에 접근이 가능하다. (Tv의 인스턴스: 인스턴스변수: color,power,channel / 메서드 : power(), channelUp(), channelDown())        
-3.  tv.channel = 7;
+3.  tv.channel = 7; <br/>
 		- 참조변수 tv에 저장된 주소에 있는 인스턴스의 멤버변수 channel에 7을 저장한다. 참조변수로의 접근은 도트연산자(.)을 통해 위와같이 가능하다.
         
-4. tv.channelDown()
+4. tv.channelDown() <br/>
 		- 참조변수 t가 참조하고 있는 Tv의 인스턴스의 channelDown메서드를 호출한다. 멤버변수 channel값을 1만큼 감소시킨다. 따라서 channel의 값은 6이 된다.
 
-5. System.out.printf("현재 채널의 값 : %d" , tv.channel);
+5. System.out.printf("현재 채널의 값 : %d" , tv.channel); <br/>
 		- 참조변수 tv가 참조하고 있는 channel의 값을 출력한다. 현재 값은 6이니 **현재 채널의 값 : 6** 이 출력된다.
         
-</br>
+<br/>
 
 > 위와같이 인스턴스는 참조변수를 통해서 접근하며 참조 변수의 타입은 인스턴스의 타입과 일치 해야한다.
 
@@ -356,19 +356,19 @@ public class TvExample2 {
 ```
 
 > **실행결과**
-> tv1의 현재 채널의 값 : 0
-> tv2의 현재 채널의 값 : 0
-> tv1의 현재 채널의 값 : 7로 변경 하였습니다
-> 현재 채널의 값 : 7
-> 현재 채널의 값 : 0
+> tv1의 현재 채널의 값 : 0 <br/>
+> tv2의 현재 채널의 값 : 0 <br/>
+> tv1의 현재 채널의 값 : 7로 변경 하였습니다 <br/>
+> 현재 채널의 값 : 7 <br/>
+> 현재 채널의 값 : 0 <br/>
 
 </br>
 
 
-1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv();
+1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv(); <br/>
 		- tv1과 tv2는 같은 클래스로부터 생성 되었을지라도, 생성시 다른 주소값을 부여받게된다.
 
-2. tv1.channel = 7;
+2. tv1.channel = 7; <br/>
 		- 따라서 위의 코드는 tv1이 참조하고 있는 참조변수 channel에만 7의 값이 셋팅된다.
 <br/>
 
@@ -440,24 +440,24 @@ public class TvExample3 {
 <br/>
 
 >**실행결과**
->tv1의 현재 채널의 값 : 0
->tv2의 현재 채널의 값 : 0
->tv1의 현재 채널의 값 : 7로 변경 하였습니다
->현재 채널의 값 : 7
->현재 채널의 값 : 7
+>tv1의 현재 채널의 값 : 0 <br/>
+>tv2의 현재 채널의 값 : 0 <br/>
+>tv1의 현재 채널의 값 : 7로 변경 하였습니다 <br/>
+>현재 채널의 값 : 7 <br/>
+>현재 채널의 값 : 7 <br/>
 
 <br/>
 
-1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv();
+1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv(); <br/>
 		- tv1과 tv2는 같은 클래스로부터 생성 되었을지라도, 생성시 다른 주소값을 부여받게된다.
 
-2. tv2 = tv1;
+2. tv2 = tv1; <br/>
 		- 이 코드에서 tv1의 인스턴스의 주소값과 tv2의 인스턴스 주소값이 같아진다. tv2가 원래 가지고 있던 주소 값은 사라진다. 즉, tv2가 참조하고 있던 인스턴스는 더이상 사용 할 수 없다.
         
-3. tv1.channel = 7;
+3. tv1.channel = 7; <br/>
 		- tv1가 참조하고있는 인스턴스 멤버 channel값이 7이된다. (tv2도 동일)
 
-4. System.out.printf("현재 채널의 값 : %d\n" , tv1.channel);
+4. System.out.printf("현재 채널의 값 : %d\n" , tv1.channel); <br/>
         System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);
         - tv1, tv2 동일한 주소값에 7이라는 값이 셋팅되었으므로, 두 값 모두 7이 출력된다.
 
