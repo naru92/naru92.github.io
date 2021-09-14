@@ -7,14 +7,7 @@ tags: JAVA
 comments: true
 published: true
 ---
----
-layout: post
-title:  "자바의 정석 스터디 - 객체지향"
-subtitle:   "객체지향프로그래밍 Ⅰ"
-categories: study
-tags: JAVA
-comments: true
----
+
 ## 자바의 정석
 >자바의 정석 스터디 1주차 (2021-09-13 ~ )
 >Ch06 - 객체지향프로그래밍 Ⅰ 정리
