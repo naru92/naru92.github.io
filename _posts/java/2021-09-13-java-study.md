@@ -458,7 +458,7 @@ public class TvExample3 {
 		- tv1가 참조하고있는 인스턴스 멤버 channel값이 7이된다. (tv2도 동일)
 
 4. System.out.printf("현재 채널의 값 : %d\n" , tv1.channel); <br/>
-        System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);
+        System.out.printf("현재 채널의 값 : %d\n" , tv2.channel);<br/>
         - tv1, tv2 동일한 주소값에 7이라는 값이 셋팅되었으므로, 두 값 모두 7이 출력된다.
 
 <br/>
