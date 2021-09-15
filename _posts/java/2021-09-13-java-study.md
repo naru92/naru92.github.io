@@ -667,7 +667,7 @@ public class CardExample {
 
 **JVM의 메모리구조**
 
-![JVM메모리구조](/assets/JVM메모리구조.png)
+![JVM의 메모리구조]({{site.baseurl}}//assets/JVM메모리구조.png))
 
 
 
