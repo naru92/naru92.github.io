@@ -352,7 +352,7 @@ public class TvExample2 {
 > 현재 채널의 값 : 7 <br/>
 > 현재 채널의 값 : 0 <br/>
 
-</br>
+<br/>
 
 
 1. Tv tv1 = new Tv(); <br/> Tv tv2 = new Tv(); <br/>
