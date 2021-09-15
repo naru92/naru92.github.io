@@ -457,4 +457,217 @@ public class TvExample3 {
 
 <br/>
 
-**인스턴스의 생성과 사용**
+**클래스의 또 다른 정의**
+
+- 프로그래밍적인 관점에서 클래스의 정의와 의미를 살펴보도록 하자.
+
+1. 클래스 - 데이터와 함수의 결합
+프로그래밍언어에서 데이터 처리를 위한 데이터 저장형태의 발전과정은 다음과 같다.
+<br/>
+
+변수 -> 배열 -> 구조체 -> 클래스
+<br/>
+
+- 변수: 하나의 데이터를 저장할 수 있는 공간
+- 배열: 같은 종류의 여러 데이터를 하나의 집합으로 저장할 수 있는 공간
+- 구조체 서로 관련된 여러 데이터를 종류에 관계없이 하나의 집합으로 저장할 수 있는 공간
+- 클래스 데이터와 함수의 결합( 구조체 + 함수 )
+<br/>
+
+> 변수와 함수를 유기적으로 연결시켜 작업을 간단하고 명료해질 수 있도록 점점 변화됨.
+
+<br/>
+
+2. 클래스 - 사용자정의 타입
+사용자 정의 타입이란, 프로그래밍언어에서 제공하는 자료형 외에 서로 관련된 변수들을 묶어서 하나의 타입으로 새로 추가하는 것을 사용자정의 타입(user-defined-type) 이라고 한다.
+<br/>
+자바에서는 클래스가 곧 사용자 정의 타입이다.
+
+또한 아래와 같은 조건이 주어져 있을때, 객체지향언어는 데이터의 추가적 조건들을 반영하기 용이하다
+
+> **1. 시분초는 모두 0보다 크거나 같아야 한다.**
+> **2.시의 범위는 0~23, 분과 초의 범위는 0~59이다.**
+
+위의 조건을 준수하여 코드를 작성해보자
+
+```
+
+package ch06_createInstance;
+
+public class Time {
+	
+	private int hour;
+	private int minute;
+	private float second;
+	
+	public int getHour() {
+		return hour;
+	}
+	public int getMinute() {
+		return minute;
+	}
+	public float getSecond() {
+		return second;
+	}
+	
+	public void setHour(int h) {
+		if (h<0|| h>23) {
+			return;
+		}
+		hour = h;
+	}
+	public void setMinute(int m) {
+		if (m<0 || m>59) {
+			return;
+		}
+		minute = m;
+	}
+	public void setSecond(float s) {
+		
+		if (s < 0.0f || s > 59.99f) {
+			return;
+		}
+		 second = s;
+	}
+	
+}
+
+
+```
+
+<br/>
+위와같이 시간 구성요소인 (hour, minute, second) 변수를 선언하고 시간을 설정하는 set~ 메서드를 통해 시간을 셋팅한다. 셋팅하는 메서드에 if문으로 유효성을 점검후 유효한 값일때에만 인스턴스 멤버변수에 저장한다.
+
+--- 
+
+### 변수와 메서드
+
+**선언위치에 따른 변수의 종류**
+
+<br/>
+
+| 변수의 위치 | 선언위치 | 생성시기 |
+| --- | --- | --- |
+| 클래스변수 | 클래스 영역 | 클래스가 메모리에 올라갈 때 |
+| 인스턴스변수 | 클래스 영역 | 인스턴스가 생성되었을 떄 | 
+| 지역변수 | 클래스 영역 이외(메서드,생성자,초기화 블럭 내부) | 변수 선언문이 수행되었을 때 |
+
+<br/>
+
+- 클래스 변수
+	- 클래스 변수를 선언하는 방법은 인스턴스 변수 앞에 static을 붙인다.
+    - 인스턴스 변수가 독립적인 저장공간을 갖는 인스턴스 변수와는 달리, 클래스변수는 모든 인스턴스가 공통된 저장공간을 공유한다. 따라서 **공통적인 값을 유지해야하는 속성의 경우, 클래스 변수로 선언한다.**
+    - 클래스 변수는 인스턴스 변수와 달리 인스턴스를 생성하지 않고 언제라도 바로 사용 할수 있다.('클래스이름.클래스변수')
+    - 클래스가 메모리에 '로딩' 될 떄 생성되어 프로그램 종료시 까지 유지 되며 public을 앞에 붙이면 프로그램 어디에서나 접근 가능한 전역변수의 성격을 갖는다.
+
+<br/>
+
+- 인스턴스 변수
+	- 클래스 영역에 선언되며, 클래스의 인스턴스 생성시 만들어진다.
+    - 인스턴스가 생성되어야 사용 가능하다.
+    - 인스턴스 변수는 독립적인 저장곤간을 가지므로 서로 다른 값을 가질 수 있다.
+    - 인스턴스마다 고유한 상태를 유지해야하는 속성의 경우 인스턴스변수로 선언한다.
+    
+<br/>
+
+- 지역변수
+	- 메서드 내에 선언된다. 메서드내에서만 사용가능하다.
+    - 메서드가 종료되면 소멸되어 사용 할 수 없다.(실행블록 {} 종료시)
+    - 대표적으로 for문에 관례적으로 사용하는 'int i' 같은 변수를 지역변수라 한다.
+
+<br/>
+
+**클래스 변수와 인스턴스 변수**
+
+카드 클래스를 정의하여 클래스 변수와 인스턴스 변수의 차이를 알아보자
+
+> 카드는 무늬, 숫자, 폭, 높이의 속성을 갖는다.
+
+<br/>
+
+- Card.class
+
+```
+package ch06_variableAndMethod;
+
+public class Card {
+	
+	String kind; //무늬
+	int number; //숫자
+	
+	static int width = 100; //폭 
+	static int height = 250; // 높이
+}
+
+```
+<br/>
+
+> 무늬(kind)랑 숫자(number)는 카드 마다 다를 수 있기에 인스턴스 변수, 폭과 높이는 카드 모두가 같은 값을 가지므로 클래스변수로 선언한다.
+
+<br/>
+
+```
+
+package ch06_variableAndMethod;
+
+public class CardExample {
+	public static void main(String[] args) {
+		
+		System.out.println("Card.width = " + Card.width);
+		System.out.println("Card.height = " + Card.height);
+		
+		Card c1 = new Card();
+		c1.kind = "Heart";
+		c1.number = 7; 
+		//카드객체1 - 하트 7생성
+		
+		Card c2 = new Card();
+		c2.kind = "Spade";
+		c2.number = 4;
+		//카드객체2 - 스페이드 4생성
+		
+		System.out.printf("c1은 %s,%d 이며 높이는 %d 폭은 %d 입니다.\n", c1.kind, c1.number, Card.height, Card.width);
+		System.out.printf("c2은 %s,%d 이며 높이는 %d 폭은 %d 입니다.\n", c2.kind, c2.number, Card.height, Card.width);
+        
+		/*
+        인스턴스 변수를 통해서 클래스변수에 접근 할 수 있지만 일반적으로는 클래스.클래스변수로 제어해야 이클립스에서 		 경고를 보내지 않는다.
+        */
+		
+		System.out.printf("c1의 높이와 폭을 각각 80, 50으로 변경합니다.\n");
+		System.out.println();
+        
+		c1.width = 50;
+		c1.height = 80;
+		
+		System.out.println("변경 후");
+		System.out.printf("c1은 %s,%d 이며 높이는 %d 폭은 %d 입니다.\n", c1.kind, c1.number, Card.height, Card.width);
+		System.out.printf("c2은 %s,%d 이며 높이는 %d 폭은 %d 입니다.\n", c2.kind, c2.number, Card.height, Card.width);
+	}
+}
+
+```
+
+클래스 변수는 '클래스이름.클래스변수' 로 호출해야한다.(인스턴스 변수로 호출시, 올바른 클래스 멤버변수 호출법이 아니라고 경고를줌)<br/>
+클래스 변수 width와 height는 c1,c2 인스턴스 모두 공유 하기 떄문에 인스턴스변수 c1.width, c1.height 만 변경한다해도 인스턴스 c2도 참조하는 값이 같기 때문에 바뀐 값이 동일하게 적용된다.
+<br/>
+> 클래스 변수는 모든 인스턴스가 하나의 저장곤간을 공유하므로 항상 공통된 값을 갖는다.
+
+<br/>
+
+**메서드**
+
+'**메서드(Method)**'는 특정 작업을 수행하는 일련의 문장들을 하나로 묶은 것, 수학의 함수와 유사함. 호출 시 메서드의 과정은 일체 몰라도 됨, 필요한 값, 결과만 알면 된다.
+<br/>
+
+**메서드를 사용하는 이유 ❓**
+
+1. 높은 재사용성
+2. 중복 코드의 제거
+3. 프로그램의 구조화
+
+**JVM의 메모리구조**
+
+![JVM메모리구조](/assets/JVM메모리구조.png)
+
+
+
