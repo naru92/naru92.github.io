@@ -667,7 +667,7 @@ public class CardExample {
 
 **JVM의 메모리구조**
 
-![JVM의 메모리구조]({{site.baseurl}}//assets/JVM메모리구조.png))
+![JVM메모리구조](https://user-images.githubusercontent.com/85389189/133498489-062b57ce-448e-4736-9e81-4f7c1fc3f1c9.png)
 
 
 
