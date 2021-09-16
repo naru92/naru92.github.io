@@ -662,9 +662,137 @@ public class CardExample {
 **메서드를 사용하는 이유 ❓**
 
 1. 높은 재사용성
+
 2. 중복 코드의 제거
+
+- Add.class
+
+```
+package ch06_variableAndMethod;
+
+public class Add {
+	
+	int a = 7;
+	int b = 6;
+	int c = 13;
+	int d = 9;
+	
+	//두개의 정수값을 받아 더하는 메서드
+	public int plus (int a, int b) {
+		return a + b;
+	}
+}
+
+```
+
+- AddExample.class 
+
+```
+package ch06_variableAndMethod;
+
+public class AddExample {
+	public static void main(String[] args) {
+		int result;
+		Add add = new Add();
+		
+		
+		result = add.a + add.b;
+		result = add.c + add.d; //중복되는 연산이 보인다.
+		
+		//메서드를 만들면 값을 주고 호출만 하면 끝이다.
+		result = add.plus(add.a, add.b);
+		
+		
+	}
+}
+
+```
+<br/>
+
+> 코드 수정시에도 반복되는 작업일시 메서드 부분만 고치면 되고, 중복또한 제거가 된다. 코드 유지보수 측면에서 훨씬 효울적인 코드가 된다.
+
+<br/>
+
 3. 프로그램의 구조화
 
+프로그램 작성시 하나의 메서드에는 수많은 코드를 넣어 관리 하게 된다면 구조가 매우 복잡해질 뿐더러 나중에 관리 하기가 힘들어 진다. 따라서 프로그램의 구조화를 시키기위해서라도 메서드를 작업단위로  만들고 관리 하는것은 필수불가결하다.
+
+<br/>
+
+```
+
+package ch06_variableAndMethod;
+
+public class AddExample2 {
+	public static void main(String[] args) {
+		int result;
+		double divideResult;
+		Add add = new Add();
+		
+		result = add.plus(10, 20);
+		System.out.println("더하기 : " + result);
+		result = add.minus(10, 5);
+		System.out.println("빼기 : " + result);
+		result = add.multiple(2, 3);
+		System.out.println("곱하기 : " + result);
+		divideResult = add.divide(10, 3);
+		System.out.println("나누기 : " + divideResult);
+	
+		
+	}
+}
+
+```
+<br/>
+
+> 실행시키는 곳에서는 단순히 호출만 하면된다.
+
+<br/>
+
+**메서드의 선언과 구현**
+
+메서드는 크게 선언부와 구현부로 나누어져 있다.
+
+```
+
+**선언부 : 반환타입 메서드 이름(타입 변수명, 타입 변수명, ... )**{
+	
+    // 구현부 : 메서드 호출시 수행될 코드
+}
+
+```
+
+<br/>
+
+- **메서드 선언부(method declaration , method header)**
+	- 메서드의 선언부는 '메서드의 이름' 과 '매개변수 선언' 그리고 '반환 타입'으로 구성되어 있으며, 메서드가 작업을 수행하기 위해 어떤 값들을 필요로 하고 작업의 결과로 어떤 타입의 값을 반환하는 지에 대한 정보를 제공한다.
+<br/>
+
+- **매개변수 선언(parameter declaration)**
+	- 메서드가 작업을 수행하는데 필요한 값을 제공, 변수간의 구분은 쉽표를 사용, 매개변수의 타입은 생략할 수 없음
+    - 매개변수에 배열이나 , 참조변수를 사용해도 됨, 매개변수를 전혀 받지 않을경우 생략가능
+<br/>
+
+- **메서드의 이름(method name)**
+	- 메서드의 이름또한 변수의 명명규칙대로 작성하면된다.
+    - 동사인 경우가 많다.
+    - 함축적이고 의미있는 이름을 명명하도록 노력해야한다.
+    
+- **반환타입(return type)**    
+	- 메서드의 작업수행 결과로 생기는 값이다.
+    - 반환 값이 없는 경우 **void** 있는 경우 **반환받을 타입** 을 메서드 이름 앞에 명시해주면 된다.    
+<br/>    
+
+- **메서드 구현부(return type)** 
+	- 메서드 구현부는 실행블록({ }) 안의 코드를 말한다.
+<br/>
+
+- **return문**        
+	- 리턴타입이 void가 아닌 경우 반드시 메서드의 반환값이 return 값으로 주어져야한다.
+    - 리턴타입은 반환타입과 일치하거나 적어도 자동 형변환이 가능한 것이 어야 한다.
+    - 매개변수는 여러개 일수 있어도 반환 값은 **최대 하나**만 허용 된다.
+
+<br/>
 **JVM의 메모리구조**
 
 ![JVM메모리구조](https://user-images.githubusercontent.com/85389189/133498489-062b57ce-448e-4736-9e81-4f7c1fc3f1c9.png)
