@@ -791,11 +791,586 @@ public class AddExample2 {
 	- 리턴타입이 void가 아닌 경우 반드시 메서드의 반환값이 return 값으로 주어져야한다.
     - 리턴타입은 반환타입과 일치하거나 적어도 자동 형변환이 가능한 것이 어야 한다.
     - 매개변수는 여러개 일수 있어도 반환 값은 **최대 하나**만 허용 된다.
+    
+<br/>
+
+**return문 예시**
+
+```
+int add(int x, int y) { // 정수형 매개변수 2개, 메서드타입 int
+	
+    int result = x + y;
+    return result; // 결과 정수형 결과값 1개, 리턴타입 int
+
+}
+
+```
+    
+<br/>
+
+
+**메서드 호출**
+<br/>
+
+메서드를 정의 했어도 호출하지 않으면 아무일도 일어나지 않는다.
+
+메서드의 호출은 매개변수가 있는 메서드 호출과, 매개변수가 없는 메서드 호출이 있다.
+매개변수가 없는 **메서드 호출은 메서드이름();** 으로 호출 하나 매개변수가 있다면 인자의 개수와 순서를 일치시켜 호출해야한다.
 
 <br/>
+
+```
+
+int add(int x, int y) { // 정수형 매개변수 2개, 메서드타입 int
+	
+    int result = x + y;
+    return result; // 결과 정수형 결과값 1개, 리턴타입 int
+
+```
+
+위의 메서드 add를 호출 한다고 가정해보자.
+
+```
+public static void main(String[] args) {
+	...
+    
+    int result = add(3, 5) //매개변수에 각각 int x = 3, int y = 5 가 셋팅된다.
+    
+    ...
+    
+}
+
+
+```
+<br/>
+
+> 매개변수가 여러개인 메서드의 호출시 매개변수의 타입과, 순서에 유의하자!
+
+
+<br/>
+
+**메서드의 실행흐름 **
+
+<br/>
+같은 클래스 내의 메서드끼리는 참조변수를 사용하지 않고도 서로 호출이 가능하지만, static 메서드는 같은 클래스 내의 인스턴스 메서드를 호출할 수 없다.
+
+아래의 코드로 실습해보자.
+
+- MyMath.class
+
+```
+
+package ch06_callMethod;
+
+public class MyMath {
+	
+	long add (long a, long b) {
+		long result = a+b;
+		
+		return result;
+		// return a+b; 위의 두줄은 이 코드와 같다.
+				
+	}
+	
+	long subtract(long a, long b) {
+		return a - b;
+	}
+	
+	long multiply(long a, long b) {
+		return a * b;
+	}
+	double divide(double a, double b) {
+		return a / b;
+	}
+}
+
+```
+<br/>
+
+- MyMathExample.class
+
+```
+package ch06_callMethod;
+
+public class MyMathExample {
+	public static void main(String[] args) {
+		
+		MyMath myMath = new MyMath(); //1.인스턴스를 생성한다
+		
+		long value = myMath.add(1L, 2L);//2.메서드를 호출한다 -> 3.메서드가 실행되어 리턴값이 변수 value에 담긴다.
+		
+		//4. 호출한 메서드 코드 종료후 아래에 코드가 있다면 이후의 문장을 실행한다.
+		System.out.println("value값 : " + value);
+			
+	}
+}
+
+```
+
+> 메서드 호출시 main메서드의 코드실행은 멈추고 호출된 메서드 실행 블록 종료 후 다시 코드 진행이 된다!
+메서드의 리턴값을 담을 변수는 리턴값과 일치하거나 자동 형변환이 가능한 타입이어야 한다!
+
+<br/>
+
+**return문**
+return 문은 현재 실행중인 메서드를 종료하고 호출한 메서드로 되돌아간다. **모든 메서드는 메서드의 마지막에 return문을 넣어주어야한다. 메서드 반환타입이 void일지라도, return문이 존재한다.(생략이 가능한 이유는 컴파일러가 자동으로 추가해주기 때문)**
+<br/>
+
+- 주의할점❗
+	- 메서드 리턴타입이 void가 아닌 경우 : 반드시 개발자가 return문을 명시해주어야 한다.
+    - 메서드의 결과가 조건에 따라 다를경우(ex. if문) 결과마다 return문을 명시해 주어야 한다.
+    
+
+<br/>
+
+**반환값**
+
+return문의 반환값으로 주로 변수가 오지만, 항상 그렇진 않다. 아래와 같이 변수를 넘기거나 계산 수식을 넘겨도 된다.
+
+```
+
+long add (long a, long b) {
+		long result = a+b;
+		
+		return result; // 1.변수로 넘기는 방법
+		// return a+b; 2.계산 수식으로 넘기는 방법
+				
+	}
+
+
+```
+<br/>
+
+다음은 diff 메서드로 두 개의 정수를 받아서 그 차이를 절대값으로 반환한다. 두번째 리턴 방법은 abs호출후 결과를 받아서 반환한다. 메서드 abs의 반환타입(int)와 메서드 diff의 반환타입이 일치하기 때문에 가능한 방법이다.
+
+```
+	int diff(int x, int y) {
+		int result = Math.abs(x-y);
+		return result; // 첫번째 방법
+		//return Math.abs(x-y); 두번째 방법
+	}
+	
+```
+
+간단한 메서드의 경우 if가 아닌 삼항연산자를 사용하기도 한다.
+
+> condition ? exprIfTrue : exprIfFalse 
+
+- 조건 ? 참일경우 리턴값 : 거짓일 경우 리턴값 의 구조이다.
+<br/>
+
+아래의 코드를 보자
+
+```
+
+	int abs(int x) {
+		
+        //if 문의 경우
+		if(x>=0) {
+			return x;
+		}else {
+			return -x;
+		}
+		
+        //삼항연산자 사용한 경우
+		//return x >= 0 ? x : -x;
+	}
+	
+
+```
+
+>삼항연산자는 조건문을 훨씬 더 효율적이고 간결하게 작성하도록 도와준다. 하지만, if/else문을 무분별하게 대체해서는 안된다는 점을 if문과 삼항 연산자의 차이에서 확인할 수 있었다. 처음 삼항연산자에 대한 지식을 습득하고 무작정 if/else문을 대체하려던 시절이 있었는데, 앞으로는 명확하게 그 차이를 구분하고 상황에 따라 적재적소에 잘 활용할 수 있어야겠다.
+
+<br/>
+
+
+
+**매개변수의 유효성 검사**
+
+메서드의 구현부{}를 작성 할 때, 메서드의 구현부가 실행되기 전에 매개변수 검사가 들어가야 한다. 그렇지 못하면 몇 가지 문제가 생길 수 있다.
+
+<br/>
+**Effecitve Java**
+**첫번째**, 메서드가 수행되는 중간에 모호한 예외를 던지며 실패할 수 있다. 더 나쁜 상황은 메서드는 문제없이 수행됐지만, 어떠한 객체를 이상한 상태로 만들어 놓아 미래의 알 수 없는 시점에 이 메서드와 관련 없는 오류를 낼때다. 다시말해 매개변수 검사에 실패하면 예기치 못한 결과를 낳을 수 있다.
+<br/>
+**두번째** , public 혹은 protected 메서드는 매개변수 값이 잘못 됐을 때 던지는 예외를 문서화 하는것이 좋다. 문서화하는 경우 제약을 어겼을 때 발생하는 예외도 함께 기술해야 한다. 이러한 방법으로 API사용자가 제약을 지킬 가능성을 크케 높일 수 있다.
+
+- Divide.class
+
+```
+
+package ch06_parameterValidation;
+
+import java.math.BigInteger;
+
+/*(현재 값 mod m) 값을 반환한다. 이 메서드는
+ * 항상 음이 아닌 BigInteger를 반환한다는 점에서 remainder 메서드와 다르다.
+ * 
+ * @param m 계수(양수여야 한다.)
+ * @return 현재 값 mod m
+ * @throw ArithmeticException m이 0보다 작거나 같으면 발생한다.
+ * */
+public class Divide {
+	BigInteger bigNumber = new BigInteger("10000");
+	
+	
+	public BigInteger mod(BigInteger m) {
+		
+		if(m.signum()<= 0) {
+			throw new ArithmeticException("계수(m)은 양수여야 합니다." + m);
+		}
+		
+			return bigNumber.modInverse(m);
+	}
+}
+
+```
+
+* Tip *
+<br/>
+- java.util.Objects.requireNonNull 메서드를 통해 객체의 null값을 자동으로 체크 할 수 있다.
+- public 이 아닌 메서드는 단언문(assert)를 사용해 매개변수 유효성 검증을 할 수 있다.
+
+<br/>
+
+>메서드나 생성자를 작성 할 떄면 그 매개변수에 어떤 제약이 있을지 생각해야 한다. 제약은 코드 시작부분에서 명시적으로 검사해야한다. 그래야 오류가 발생했을시 빠르게 걸러 낼 수 있다. 가장 좋은 것은 메서드는 최대한 범용적으로 설계하여 메서드의 제약조건을 최소화 하는 것이 가장 좋다.
+
+<br/>
+
 **JVM의 메모리구조**
 
 ![JVM메모리구조](https://user-images.githubusercontent.com/85389189/133498489-062b57ce-448e-4736-9e81-4f7c1fc3f1c9.png)
+
+메모리 구조는 크게 세 부분으로 나뉜다.<br/>
+
+- Method Area
+	- 프로그램 실행중 클래스가 사용되면, JVM은 해당 클래스의 클래스파일(.class)을 읽어서 분석하여 **클래스에 대한 정보(클래스데이터)를 이곳에 저장한다. 이 때 , 그 클래스의 클래스 변수(class variable)도 이 영역에 함께 생성**된다.
+    
+- Call stack
+	- 호출스택이라 불린다. **호출스택은 메서드 작업에 필요한 공간을 제공**한다  메서드가 호출되면 메서드를 위한 메모리가 할당되며, 메서드 수행중의 필요한 데이터를 저장하는데 사용된다. 메서드가 작업을 끝내면 메모리공간은 반환되어 사라진다.
+    
+- Heap
+	- **인스턴스가 생성되는 공간**, 실행 중 생성되는 인스턴스는 모두 이곳에 생성된다. 즉. 인스턴스 변수(instance variable)들이 생성되는 공간이다.
+
+**메서드의 작업공간❗**
+
+<br/>
+
+![method그림](https://user-images.githubusercontent.com/85389189/133627878-656ffe2d-5391-41bc-aba1-1f882f7d51be.png)
+
+- 각 메서드를 위한 메모리상의 작업공간은 서로 구별되며, 첫 번째 호출 메서드는 호출스택의 맨 밑에 마련되고, 첫 번째 메서드 수행 중에 다른 메서드를 호출하면, 첫 번째 메서드의 바로 위에 두번쨰로 호출된 메서드를 위한 공간이 마련된다. 이때 첫번째 메서드는 수행을 멈추고 제일 위에 있는 메서드(두번째 호출된 메서드) 부터 처리한 뒤 다시 첫번째 메서드를 실행한다.
+
+<br/>
+
+- CallStack.class
+
+```
+
+package ch06_callStack;
+
+public class CallStack {
+	
+	public static void firstMethod() {
+		System.out.println("첫번째 메서드 호출입니다.");
+		secondMethod(); 
+		System.out.println("첫번째 메서드 종료입니다.");
+	};
+	
+	public static void secondMethod() {
+		System.out.println("두번째 메서드 호출입니다.");
+		System.out.println("두번째 메서드 종료입니다.");
+	};
+	
+	
+}
+
+```
+
+- CallStackExample.class
+
+```
+package ch06_callStack;
+
+public class CallStackExample {
+	public static void main(String[] args) {
+		
+		CallStack.firstMethod();
+	}
+
+}
+
+```
+
+<br/>
+
+>실행결과 <br/>
+>첫번째 메서드 호출입니다. <br/>
+>두번째 메서드 호출입니다. <br/>
+>두번째 메서드 종료입니다. <br/>
+>첫번째 메서드 종료입니다. <br/>
+
+- 첫번째 메서드가 두번째 메서드를 호출 한 뒤, 두번째 메서드 종료후 첫번째 메서드가 다시 실행돼 종료하는것을 볼 수 있다.
+- 출력하진 하진 않았지만, 마지막으로는 main 메서드가 종료된다.
+
+
+**기본형 매개변수와 참조형 매개변수**
+
+기본형 매개변수와 참조형 매개변수의 가장 큰 차이점은 기본형을 경우 값만 복사 되겠지만, 참조형 매개변수는 인스턴스의 주소가 복사된다. **즉, 기본형 매개변수는 읽기만 가능하지만 참조형 매개 변수는 읽기˙변경 모두 가능하다.
+<br/>
+
+- Data.class
+
+```
+class Data { 
+	int x;  
+    
+    static void change(int x) {
+	x = 1000;
+	System.out.println("change() : x = " + x);
+  }
+}
+
+```
+- DataExample
+
+```
+package ch06_parameterValidation2;
+
+public class DataExample {
+	public static void main(String[] args) {
+		
+		Data d = new Data();
+		d.x = 10;
+		System.out.println("main() : x = " + d.x );
+		
+		change(d.x);
+		System.out.println("After change(d)");
+		System.out.println("main() : x = " + d.x);
+		
+	}	
+		
+}
+
+```
+
+>main() : x = 10 <br/>
+>change() : x = 1000 <br/>
+>After change(d) <br/>
+>main() : x = 10 <br/>
+
+<br/>
+1. change() 메서드가 호출되면서 'd.x'가 change 메서드의 매개변수 x에 복사된다.
+2. change() 메서드에서 x의 값을 1000으로 변경 시킨다.
+3. change메서드가 종료되면서 매개변수 x는 스텍에서 제거된다.
+
+>즉 , d.x의 값이 변경된것이 아니라 change 메서드의 매개변수 x의 값이 변경 된것이다. 원본이 아닌 복사본이 변경된 것이라, 원본에는 아무런 영향을 미치지 못한다.
+
+다음은 매개변수로 Data타입을 사용하는 메서드이다
+
+- Data.class
+
+```
+
+package ch06_parameterValidation2;
+
+
+public class Data {
+	int x;
+	
+	static void change(int x) {
+		x = 1000;
+		System.out.println("change() : x = " + x);
+	}
+	
+	static void change(Data d) {
+		d.x = 1000;
+		System.out.println("change() : x = " + d.x);
+	}
+}
+
+```
+
+<br/>
+
+- DataExample2.class
+
+```
+package ch06_parameterValidation2;
+
+public class DataExample {
+	public static void main(String[] args) {
+		
+		Data d = new Data();
+		d.x = 10;
+		System.out.println("main() : x = " + d.x );
+		
+		change(d);
+		System.out.println("After change(d)");
+		System.out.println("main() : x = " + d.x);
+		
+	}	
+		
+}
+
+```
+>main() : x = 10 <br/>
+>change() : x = 1000 <br/>
+>After change(d) <br/>
+>main() : x = 1000 <br/>
+
+
+> 이전 매개변수 int x 의 기본 형과 달리 메서드 호출후에 d.x의 값이 변경되었다. change 메서드의 매개변수가 참조형이라서 값이 아니라 값이 저장된 주소를 change 메서드에게 넘겨주었기 때문에, 값을 읽고 변경도 가능한 것이다.
+
+<br/>
+
+배열도 마찬가지로 참조변수를 통해 데이터가 저장된 공간에 접근한다. Data 클래스 타입의 참조변수와 마찬가지로 배열의 참조변수 x도 int\[] 타입의 참조변수이기 때문에 같은 결과를 얻는다.
+
+<br/>
+
+- Data.class
+
+```
+package ch06_parameterValidation2;
+
+public class Data {
+	int x;
+	
+	static void change(int x) {
+		x = 1000;
+		System.out.println("change() : x = " + x);
+	}
+	
+	static void change(Data d) {
+		d.x = 1000;
+		System.out.println("change() : x = " + d.x);
+	}
+	
+	static void change(int[] x) {
+		x[0] = 1000;
+		System.out.println("change() : x = " + 	x[0]);
+	}
+}
+
+
+```
+- DataExample3.class
+
+```
+package ch06_parameterValidation2;
+
+public class DataExample3 {
+	public static void main(String[] args) {
+
+		int[] x = {10};
+		System.out.println("main() : x = " + x[0] );
+		
+		Data.change(x);
+		System.out.println("After change(d)");
+		System.out.println("main() : x = " + x[0]);
+		
+	}
+	
+}
+
+
+```
+
+>main() : x = 10 <br/>
+>change() : x = 1000 <br/>
+>After change(x) <br/>
+>main() : x = 1000 <br/>
+
+<br/>
+
+아래는 메서드로 배열을 다루는 여러가지 방법을 보여주는 예제이다. 매개변수의 타입이 배열이므로 마찬가지로 참조형 매개변수이다. 
+
+- Data.class
+
+```
+package ch06_parameterValidation2;
+
+public class Data {
+	int x;
+	
+	static void change(int x) {
+		x = 1000;
+		System.out.println("change() : x = " + x);
+	}
+	
+	static void change(Data d) {
+		d.x = 1000;
+		System.out.println("change() : x = " + d.x);
+	}
+	
+	static void change(int[] x) {
+		x[0] = 1000;
+		System.out.println("change() : x = " + 	x[0]);
+	}
+	
+	static void printArr(int[] arr) {//배열의 모든 요소를 출력
+		System.out.print("[");
+		
+		for(int i : arr) {
+			System.out.print(i + ",");
+		}
+		
+		System.out.print("]");
+		System.out.println();
+	}
+	
+	static int sumArr(int[] arr) {//배열의 합을 반환
+		int sum = 0;
+		
+		for(int i : arr) {
+			sum += i;
+		}
+		return sum;
+	}
+	
+	static void sortArr(int[] arr) {//배열의 모든 요소를 정렬
+		for(int i=0; i<arr.length-1; i++) {
+			for(int j=0; j < arr.length-1-i; j++) {
+				if(arr[j] > arr[j+1]) {
+					int temp = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = temp;
+				}
+			}
+		}
+	}
+}
+
+```
+
+- DataExample4.class
+
+```
+
+package ch06_parameterValidation2;
+
+public class DataExample4 {
+	public static void main(String[] args) {
+
+		int[] arr = {3,2,1,6,5,4};
+		
+		Data.printArr(arr);
+		Data.sortArr(arr);
+		Data.printArr(arr);
+		System.out.println("sum Arr = " + Data.sumArr(arr));
+		
+	}
+	
+}
+
+```
+
+>sortArr 메서드에서 정렬 한것이 원래의 배열에 영향을 끼친것을 볼 수있다.
+이렇게 참조형 매개변수인 경우 본래의 데이터에 영향을 미칠수 있음을 유의하자.
+
+다음은 리턴값이 없어도 참조형 매개변수를 이용하여 실행결과를 얻어 오는 방법이다.
+
+
+
 
 
 
