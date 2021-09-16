@@ -1369,8 +1369,82 @@ public class DataExample4 {
 
 다음은 리턴값이 없어도 참조형 매개변수를 이용하여 실행결과를 얻어 오는 방법이다.
 
+- ReturnTest.class
+
+```
+package ch06_parameterValidation2;
+
+public class ReturnTest {
+	public static void main(String[] args) {
+		ReturnTest r = new ReturnTest();
+		
+		int result = r.add(3,5);
+		System.out.println(result);
+		
+		int[] result2 = {0}; //배열 생성후 result2[0]의 값을 0으로 초기화
+		r.add(3,5,result2); //배열을 add 메서드의 매개변수로 전달
+		System.out.println(result2[0]);
+	}
+	
+	int add(int a, int b) {
+		return a+b;
+	}
+	
+	void add(int a, int b, int[] result) {
+		result[0] = a + b; //매개변수로 넘겨받은 배열에 연산결과에 저장(참조변수라 데이터가 저장됨)
+	}
+	
+}
 
 
+```
 
+**참조형 반환타입**
+매개변수 뿐만 아니라 반환타입도 참조형이 가능하다. 하지만 특별한 것 없이 **그저 참조변수의 주소값을 반환한다 생각하면 된다.**
 
+- Data.class 일부
 
+```
+
+public class Data {
+	int x;
+	
+	static Data copy(Data d) {
+		Data temp = new Data();
+		temp.x = d.x;
+		
+		return temp;
+	}
+    ...
+ }  
+ 
+ ```
+ 
+<br/>
+
+- ReferenceReturnExample.class
+
+```
+package ch06_parameterValidation2;
+
+public class ReferenceReturnExample {
+	public static void main(String[] args) {
+		Data d = new Data();
+		d.x = 10;
+		
+		Data d2 = Data.copy(d);
+		System.out.println("d.x = " + d.x);
+		System.out.println("d2.x = " + d2.x);
+	}
+}
+
+```
+
+Copy 메서드는 새로운 Data 객체를 생성후에 매개변수로 넘겨받은 객체에 저장된 값을 복사해서 반환한다.
+
+1. copy메스더 호출, 참조변수 d의 값이 매개변수 d에 복사된다.
+2. 새로운 객체를 생성한 다음 d.x에 저장된 값을 tmp.x에 복사한다.
+3. copy 메서드가 종료되면서 반환한 temp(임시변수) 의 값은 참조변수 d2에 저장된다.
+4. copy메서드가 종료되어 temp가 사라졌지만, de로 새로운 객체를 다룰수 있다.
+
+> 다시한번 강조하지만 **'참조형'** 이라는 것은 메서드가 **'객체의 주소'를 반환**한다는 것을 의미한다
