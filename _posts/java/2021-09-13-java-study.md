@@ -1685,6 +1685,8 @@ public class MyMathExample2 {
 **인스턴스 메서드는 인스턴스변수로 작업이 가능하기에 매개변수를 주지 않았다. 반면에 스테틱 메서드는 인스턴스 변수없이 매개변수로 작업해야 하기 때문에 매개변수를 주어야 한다. 또 호출에 있어 인스턴스 메서드는 반드시 인스턴스가 생성 되어 있어야 호출이 가능하며, 스테틱 메서드는 인스턴스 생성 없이 호출이 가능하다.**
 <br/>
 
+**클래스 맴버와 인스턴스 맴버간의 참조와 호출**
+클래스 메서드와 인스턴스 메서드의 관계와 마찬가지로 적용된다.
 
 ---
 
@@ -1692,20 +1694,153 @@ public class MyMathExample2 {
 <br/>
 
 **오버로딩이란?**
+> 한 클래스 내에 같은 이름의 메서드를 여러개 정의하는 것을 '**메서드 오버로딩**'이라 한다.
+
+<br/>
 
 <br/>
 **오버로딩의 조건**
+> 1. 메서드 이름이 같아야 한다. <br/>
+> 2. 매개변수의 개수 또는 타입이 달라야한다.
+>**참고**. 반환타입은 오버로딩을 구현하는데 아무런 영향이 없다.
 
 <br/>
 **오버로딩의 예**
+오버로딩의 대표적인 예로는 **println 메서드!**
+> System.out.println(boolean x) <br/>
+> System.out.println(char x) <br/>
+> System.out.println(String x) <br/>
+> System.out.println(Object x) <br/>
+>... <br/>
 
 <br/>
-**오버로딩의 장점**
+
+>사용자가 매개변수로 넘기는 값의 타입에 따라서 메서드가 선택되어 실행되는 것이다.
+
+아래와 같은 경우 메서드 오버로딩은 성립 하지 않는다.
+
+<br/>
+
+1. 매개변수의 이름만 다른 경우
+
+```
+
+int add (int a, int b) {return a+b;}
+int add (int x, int y) {return x+y;}
+//이름만 다를뿐 아무 의미 없다. 같은 메서드로 취급한다.
+```
+<br/>
+
+2. 리턴 타입만 다른 경우
+
+```
+
+int add (int a, int b) {return a+b;}
+long add (int a, int b) {return (long)a+b;}
+//매개변수가 같기 때문에 호출 자체가 모호해 진다. 이역시 같은 메서드로 본다
+```
+
+**하지만**, 아래와 같은 경우에는 성립된다.
+
+**매개변수 순서만 다른 경우**
+<br/>
+
+```
+
+long add (int a, long b) {return a+b;}
+long add (iong a, int b) {return a+b;}
+
+```
+<br/>
+메서드가 매개변수의 순서로 구분되기에, **오버로딩으로 간주한다.**
+하지만 아래 코드와 같은 경우 주의하자
+
+```
+int  add (int a, long b) {return a+b;}
+long add (iong a, int b) {return a+b;}
+
+long add(int[] a) { //배열의 모든 요소의 합을 반환
+	long result = 0;
+    
+    for(int i=0; i < a.length; i++) {
+    	result += a[i];
+    }
+    return result;
+}
+
+```
+<br/>
+얼핏 보면 순서 다르게 해서 주면 별 문제 없을거 같지만 매개변수가 add(3,3)인 경우는 호출하기가 굉장히 모호해진다. 아니 호출 할 수가 없게 된다. 따라서 메서드를 호출하는 곳에서 컴파일 에러가 발생한다.
+<br/>
+> 같은 일을 하지만 매개변수를 달리해야하는 경우에, 이와 같이 이름은 같고 매개변수를 다르게하여 오버로딩을 구현한다.
+
+
+<br/>
+**오버로딩의 장점❓**
+<br/>
+그래서 오버로딩 장점이 뭔가? <br/>
+다시 println을 살펴보자. println메서드의 의의는 콘솔로 매개변수에 있는 정보를 출력하는데 있다. 매개변수만 다를 뿐 근본적인 기능은 같다. 하지만 개발자 입장에서 같은 기능을 하는 메서드의 이름을 각각 짓기도 어렵고, 사용하는 쪽 또한 그것을 구분해야 하기 때문에 굉장히 비효율적이 된다.
+<br/>
+>즉 오버로딩을 통해 기억하기도 쉽고, 이름도 짧게 할 수 있어서 오류의 가능성을 최소화 한다. 암묵적으로 이름이 같으므로 같은 기능을 하겠구나. 예측도 쉽게 된다.
 
 <br/>
 **가변인자(varargs)와 오버로딩**
+JDK 1.5부터 , 동적으로 매개변수의 개수를 제어 할 수 있다. 이를 '**가변인자**' 라고 한다.
 
+가변인자의 선언은 '**타입... 변수명**'과 같은 형식으로 선언하며, PrintStream클래스의 **printf()가 대표적인 예**이다. 
+
+```
+public PrintStream printf(String format, Object... args)
+//위와 같이 가변인자 외에도 매개변수가 더 있다면, 가변인자를 매개변수 중에서 제일 마지막에 선언해야 한다.
+//그렇지 않다면 , 컴파일 에러를 발생시킨다. 가변인자인지 아닌지 구별할 방법이 없기 때문에 허용하지 않기 때문이다.
+
+
+```
 <br/>
+- VarArg.class
+
+```
+package ch06_varargs;
+
+public class VarArg {
+	
+	static String concatenate(String delim, String...args) {
+		String result ="";
+		
+		for(String str : args) {
+			result += str + delim;
+		}
+		return result;
+	}
+	
+	/*
+	 static String concatenate(String...args) {
+	 
+	  	return concatenate( "", args );
+	  }
+	 */
+}
+
+```
+
+- VarArgExample.class
+```
+package ch06_varargs;
+
+public class VarArgExample {
+	public static void main(String[] args) {
+		String[] strArr = {"100","200","300"};
+		
+		System.out.println(VarArg.concatenate("", "100","200","300"));
+		System.out.println(VarArg.concatenate("", strArr));
+		System.out.println(VarArg.concatenate("", new String[] {"1","2","3"}));
+		System.out.println("["+VarArg.concatenate("", new String[0])+"]");
+		System.out.println("["+VarArg.concatenate(",", new String[0])+"]");
+		System.out.println("["+VarArg.concatenate(",")+"]");
+	}
+}
+
+```
 
 ---
 
