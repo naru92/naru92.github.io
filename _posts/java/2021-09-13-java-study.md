@@ -1841,19 +1841,150 @@ public class VarArgExample {
 }
 
 ```
+-concatenate메서드는 매개변수로 입력된 문자열에 구분자를 사이에 포함시켜 결합 후 반환한다.
+가변인자로 매개 변수를 선언했기 때문에 문자열을 개수의 제약 없이 매개변수로 지정 할 수 있다.
+
+주의❗
+> 가변인자를 사용하는 메서드 사용시, 되도록 오버로딩을 하지 않는것이 좋다. 메서드를 호출 했을시 가변인자 구별이 되지 못하는 경우가 쉽기 때문에 컴파일 에러가 발생할 확률이 높기 때문이다.
+
 
 ---
 
 #### 생성자
 <br/>
+
 **생성자란?**
+>생성자는 인스턴트가 생성될 때 호출되는 '인스턴스 초기화 메서드' 이다.
+
+<br/>
+- 생성자 역시 메서드 처럼 클래스 내에 선언되며, 구조도 메서드와 유사하다.
+- 메서드와 달리 리턴 값이 없다.
+- 리턴값이 없지만 void를 붙이지 않는다.
+
+<br/>
+생성자의 조건은 아래와 같다.
+> 1. 생성자의 이름은 클래스의 이름과 같아야 한다. <br/>
+> 2. 생성자는 리턴 값이 없다. <br/>
+
+```
+//클래스 이름(타입 변수명, 타입 변수명, ...) {
+	//인스턴스 생성시 수행될 코드,
+    // 주로 인스턴스의 변수의 초기화 코드를 적는다.
+}
+
+```
+<br/>
+
+- 매개변수가 없는 생성자의 예(default constructor)
+
+```
+class Card{
+	Card() { 
+    	...
+    }
+}
+
+```
+<br/>
+
+```
+
+- 매개변수가 있는 생성자의 예
+class Card{
+	Card(Stirng k , int num){
+			...
+    }
+}
+
+```
+<br/>
+
+- 알아둬야 할 점은 연산자 new가 인스턴스를 생성하는 것이지, **생성자가 인스턴스를 생성하는 것이 아니다.**
+- 인스턴스변수들의 초기화에 사용되는 메서드의 개념으로 알아두면 쉽다.
+
+> **Card클래스 에서 생성자의 기능** <br/>
+> 1. 연산자 new에 의해서 메모리(heap) 영역에 Card클래스의 인스턴스가 생성된다. <br/>
+> 2. 생성자 Card() 가 호출된다. <br/>
+> 3. 연산자 new의 결과로 , 생성된 Card인스턴스의 주소가 반환되어 참조변수 c에 저장된다. <br/>
+
+**인스턴스를 생성 할 떄에는 반드시 클래스 내에 정의된 생성자 중에 하나를 선택하여 인스턴스를 생성하게 된다.**
 
 <br/>
 
 **기본 생성자(defalut constructor)**
+<br/>
+클래스는 반드시 하나의 생성자를 무조건 갖는다. 생성자가 명시적으로 생성자를 만들지 않아도 컴파일러는 반드시 '**기본 생성자'를 제공하여 컴파일 한다.**<br/>
+
+컴파일러가 제공하는 생성자는 매개변수도 없고 아무런 내용도 없는 간단한 생성자이다. 특별히 인스턴스 초기화가 필요하지 않다면 기본 생성자를 사용하게 된다.
+<br/>
+
+- Constructor.class
+
+```
+package ch06_Constructor;
+
+public class Constructor {
+    int value;
+}
+class Constructor2 {
+    int value;
+    
+    Constructor2(int x){
+        value = x;
+    }
+}
+```
+<br/>
+
+- ConstructorExample.class
+
+```
+package ch06_Constructor;
+
+public class ConstructorExample {
+    public static void main(String[] args) {
+       Constructor c = new Constructor();
+       Constructor2 c2 = new Constructor2(1); //매개변수 없이 호출시 에러가 뜸
+    }
+}
+
+```
+- Constructor1는 생성자를 명시하지 않았는데도 , 인스턴스 생성시 생성자가 호출되는 모습(기본생성자)
+- Constructor2는 생성자를 명시하고, 기본 생성자를 호출시 에러가 뜸, 반드시 사용자가 정의한 매개변수를 셋팅해야함.
+	- 즉, 개발자가 생성자를 명시적으로 호출했을 경우 기본생성자를 사용하고 싶다면, 기본생성자를 반드시 직접 만들어줘야함.
+
+> 기본 생성자가 컴파일러에 의해서 추가되는 경우는 **클래스에 정의된 생성자가 하나도 없을 떄 뿐이다.**
 
 <br/>
 **매개변수가 있는 생성자**
+<br/>
+생성자도 메서드처럼 매개변수를 선언하여 호출 시 인스턴스 작업에 사용 할 수 있다.
+인스턴스 마다 다른 값을 가져야 되는 경우 매우 유용하게 사용 할 수 있다.
+아래의 코드를 살펴보자
+
+- Car.class
+
+```
+package ch06_Constructor;
+
+public class Car {
+    String color;
+    String gearType;
+    int door;
+    
+    Car() {}
+    
+    Car(String color, String gearType, int door){
+        this.color = color;
+        this.gearType = gearType;
+        this.door = door;
+    }
+}
+
+```
+
+```
+```
 
 <br/>
 **생성자에서 다른 생성자 호출하기 - this(), this**
